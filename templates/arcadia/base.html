@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Arcadia</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{% comment %} <link rel="stylesheet" href="{% static 'arcadia/css/bootstrap.min.css' %}"> {% endcomment %}
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'arcadia/images/icons/favicon.png' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/fonts/themify/themify-icons.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/slick/slick.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/lightbox2/css/lightbox.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body class="animsition">
+
+	<!-- Header -->
+	{% include "arcadia/header.html" %}
+
+	{% block content %}
+	
+	{% endblock content %}
+
+
+	<!--signup-->
+	{% include "arcadia/signup.html" %}
+
+	<!-- Footer -->
+	{% include "arcadia/footer.html" %}
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top bg0-hov" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+		</span>
+	</div>
+
+	<!-- Container Selection1 -->
+	<div id="dropDownSelect1"></div>
+
+	<!-- Modal Video 01-->
+	<div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
+
+		<div class="modal-dialog" role="document" data-dismiss="modal">
+			<div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
+
+			<div class="wrap-video-mo-01">
+				<div class="w-full wrap-pic-w op-0-0"><img src="images/icons/video-16-9.jpg" alt="IMG"></div>
+				<div class="video-mo-01">
+					<iframe src="https://www.youtube.com/embed/5k1hSu2gdKE?rel=0&amp;showinfo=0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/bootstrap/js/popper.js' %}"></script>
+	<script type="text/javascript" src="{% static 'arcadia/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/select2/select2.min.js' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// Destroy any existing Select2 instance to prevent duplicates
+			$('.selection-1').select2('destroy');  
+
+			// Initialize Select2
+			$('.selection-1').select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+			});
+		});
+	</script>
+
+
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'arcadia/vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/slick/slick.min.js' %}"></script>
+	<script type="text/javascript" src="{%static 'arcadia/js/slick-custom.js' %}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/parallax100/parallax100.js' %}"></script>
+	<script type="text/javascript">
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script type="text/javascript" src="{% static 'arcadia/vendor/lightbox2/js/lightbox.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'arcadia/js/main.js' %}"></script>
+	<script src="{% static 'arcadia/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
