@@ -49,3 +49,25 @@ class Comment(TimeStampModel):
 
     def __str__(self):
         return f"{self.email} |  {self.comment[:70]}"
+    
+
+# Event model
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    event_time = models.CharField(max_length=100)
+
+    background_image = models.ImageField(upload_to='events/backgrounds/')
+    event_image = models.ImageField(upload_to='events/images/')
+
+    def __str__(self):
+        return self.title
+
+class Contact(TimeStampModel):
+    message = models.TextField()
+    name = models.CharField(max_length = 100)
+    email = models.EmailField()
+    subject = models.CharField(max_length = 200)
+
+    def __str__(self):
+        return self.name

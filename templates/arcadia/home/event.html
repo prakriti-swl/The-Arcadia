@@ -1,11 +1,83 @@
 {% load static %}
 
 <section class="section-event">
+    <div class="wrap-slick2">
+        <div class="slick2">
+
+            {% for event in events %}
+            <div class="item-slick2"
+                 style="background-image: url('{{ event.background_image.url }}');">
+
+                <div class="wrap-content-slide2 p-t-115 p-b-208">
+                    <div class="container">
+
+                        <div class="title-event t-center m-b-52">
+                            <span class="tit2 p-l-15 p-r-15">Upcoming</span>
+                            <h3 class="tit6 t-center p-l-15 p-r-15 p-t-3">Events</h3>
+                        </div>
+
+                        <div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false"
+                             data-appear="zoomIn">
+
+                            <!-- Event Image -->
+                            <a href="#" class="wrap-pic-blo2 bg1-blo2"
+                               style="background-image: url('{{ event.event_image.url }}');">
+                                <div class="time-event size10 txt6 effect1">
+                                    <span class="txt-effect1 flex-c-m t-center">
+                                        {{ event.event_time }}
+                                    </span>
+                                </div>
+                            </a>
+
+                            <!-- Event Info -->
+                            <div class="wrap-text-blo2 flex-col-c-m p-l-40 p-r-40 p-t-45 p-b-30">
+                                <h4 class="tit7 t-center m-b-10">{{ event.title }}</h4>
+                                <p class="t-center">{{ event.description }}</p>
+
+                                <a href="#" class="txt4 m-t-40">
+                                    View Details
+                                    <i class="fa fa-long-arrow-right m-l-10"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="wrap-slick2-dots"></div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <section class="section-event"> {% endcomment %}
 		<div class="wrap-slick2">
 			<div class="slick2">
 
-				{% for image in event_images %}
-				<div class="item-slick2 item{{forloop.counter}}-slick2" style="background-image: url(images/bg-event-01.jpg);">
+				{% for event in events %}
+				<div class="item-slick2 item{{forloop.counter}}-slick2" style="background-image: url('{{ event.background_image.url }}');">
 					<div class="wrap-content-slide2 p-t-115 p-b-208">
 						{% for images in inner_event_images %}
 						<div class="container">
