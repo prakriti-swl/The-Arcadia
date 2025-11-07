@@ -8,7 +8,7 @@
 				<!-- Logo -->
 				<div class="logo">
 					<a href="index.html">
-						<img src="{% static 'arcadia/images/icons/logo.png' %}" alt="IMG-LOGO" data-logofixed="images/icons/logo2.png">
+						<img src="{% static 'arcadia/images/icons/whitelogo.png' %}" alt="IMG-LOGO" data-logofixed="{% static 'arcadia/images/icons/arcadia_logo.png' %} " > 
 					</a>
 				</div>
 
@@ -29,7 +29,7 @@
 							</li>
 
 							<li>
-								<a href="gallery.html">Gallery</a>
+								<a href="{% url 'gallery' %}">Gallery</a>
 							</li>
 
 							<li>
@@ -37,7 +37,7 @@
 							</li>
 
 							<li>
-								<a href="blog.html">Blog</a>
+								<a href="{% url 'post-list' %}">Blog</a>
 							</li>
 
 							<li>

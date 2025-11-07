@@ -1,0 +1,35 @@
+{% extends "arcadia/base.html" %}
+
+{% block content %}
+<!-- Title Page -->
+{% include 'arcadia/blog/left/title.html' %}
+
+
+<!-- Content page -->
+<section>
+    <!--Post Nav-->
+    {% include 'arcadia/blog/left/post_nav.html' %}
+
+    <div class="container">
+        <div class="row ">
+            <!--Post Detail-->
+            {% include 'arcadia/blog/left/post_detail.html' %}
+
+            <div class="col-md-4 col-lg-3">
+                <div class="sidebar2 p-t-80 p-b-80 p-l-20 p-l-0-md p-t-0-md">
+                    <!-- Search -->
+                    {% include 'arcadia/list/right/search.html' %}
+                    
+                    <!-- Categories -->
+                    {% include 'arcadia/list/right/categories.html' %}
+                    
+                    <!-- Most Popular -->
+                    {% include 'arcadia/list/right/popular_posts.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

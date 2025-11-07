@@ -1,0 +1,19 @@
+<div class="pagination flex-l-m flex-w m-l--6 p-t-25">
+
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="item-pagination flex-c-m trans-0-4">Prev</a>
+    {% endif %}
+    
+    {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a href="?page={{ num }}" class="item-pagination flex-c-m trans-0-4 active-pagination">{{ num }}</a>
+        {% else %}
+            <a href="?page={{ num }}" class="item-pagination flex-c-m trans-0-4">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="item-pagination flex-c-m trans-0-4">Next</a>
+    {% endif %}
+
+</div>

@@ -1,0 +1,27 @@
+<div class="popular">
+    <h4 class="txt33 p-b-35 p-t-58">
+        Most popular
+    </h4>
+
+    {% for post in posts %}
+    <ul>
+        <li class="flex-w m-b-25">
+            <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
+                <a href="{% url 'post-detail' post.pk %}">
+                    <img src="{{ post.featured_image.url }}" alt="IMG-BLOG"  height = "70px">
+                </a>
+            </div>
+
+            <div class="size28">
+                <a href="{% url 'post-detail' post.pk %}" class="dis-block txt28 m-b-8">
+                    {{ post.title|truncatechars:30 }}
+                </a>
+
+                <span class="txt14">
+                    {{ post.published_at|timesince }}
+                </span>
+            </div>
+        </li>
+    </ul>
+    {% endfor %}
+</div>

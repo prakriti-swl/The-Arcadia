@@ -1,0 +1,21 @@
+<div class="bread-crumb bo5-b p-t-17 p-b-17">
+    <div class="container">
+        {% for popular_post in popular_posts %}
+            <a href="/" class="txt27">
+                Home
+            </a>
+
+            <span class="txt29 m-l-10 m-r-10">/</span>
+
+            <a href="{% url 'post-list' %}" class="txt27">
+                Blog
+            </a>
+
+            <span class="txt29 m-l-10 m-r-10">/</span>
+
+            <span class="txt29">
+                {{ popular_post.title|truncatewords:3 }}
+            </span>
+        {% endfor %}
+    </div>
+</div>

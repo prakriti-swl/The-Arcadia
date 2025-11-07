@@ -1,5 +1,5 @@
 from django import forms
-from arcadia_app.models import  Contact
+from arcadia_app.models import  Contact, Newsletter, Comment
 
 
 
@@ -9,7 +9,13 @@ class ContactForm(forms.ModelForm):
         fields = "__all__"
 
 
-# class NewsletterForm(forms.ModelForm):
-#     class Meta:
-#         model = Newsletter
-#         fields = "__all__"
+class NewsletterForm(forms.ModelForm):
+    class Meta:
+        model = Newsletter
+        fields = "__all__"
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = "__all__"

@@ -1,0 +1,16 @@
+<div class="categories">
+    <h4 class="txt33 bo5-b p-b-35 p-t-58">
+        Categories
+    </h4>
+
+    <ul>
+        {% for category in categories %}
+            <li class="bo5-b p-t-8 p-b-8">
+                <a href="{% url 'post-by-category' category.id %}" class="txt27">
+                    <p>{{ category.name|title }} &nbsp;</p>   <!--&nbsp; - for whitespace-->
+                    <p>( {{ category.post_set.count }} )</p>  <!--to count the number of post in that category-->
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

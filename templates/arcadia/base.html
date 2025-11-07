@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	{% comment %} <link rel="stylesheet" href="{% static 'arcadia/css/bootstrap.min.css' %}"> {% endcomment %}
 <!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="{% static 'arcadia/images/icons/favicon.png' %}"/>
+	<link rel="icon" type="image/png" href="{% static 'arcadia/images/icons/favicon1.png' %}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/vendor/bootstrap/css/bootstrap.min.css' %}">
 <!--===============================================================================================-->
@@ -34,10 +34,43 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/css/main.css' %}">
 <!--===============================================================================================-->
 </head>
+
+
 <body class="animsition">
 
 	<!-- Header -->
 	{% include "arcadia/header.html" %}
+	{% comment %} {% if messages %}
+		<div class="alert-container" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999;">
+			{% for message in messages %}
+			<div class="alert-message" style="
+				padding: 12px 20px;
+				margin-bottom: 10px;
+				border-radius: 6px;
+				background: {% if message.tags == 'success' %}#28a745{% else %}#dc3545{% endif %};
+				color: white;
+				font-weight: 600;
+				text-align: center;
+				width: 300px;
+				box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+			">
+				{{ message }}
+			</div>
+			{% endfor %}
+		</div>
+	{% endif %} {% endcomment %}
+
+	{% if messages %}
+		<div class="alert-container">
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}">
+					{{ message }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	{% include "arcadia/sidebar.html" %}
 
 	{% block content %}
 	
@@ -62,19 +95,23 @@
 	<div id="dropDownSelect1"></div>
 
 	<!-- Modal Video 01-->
-	<div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
+	{% comment %} <div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
 
 		<div class="modal-dialog" role="document" data-dismiss="modal">
 			<div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
 
 			<div class="wrap-video-mo-01">
 				<div class="w-full wrap-pic-w op-0-0"><img src="images/icons/video-16-9.jpg" alt="IMG"></div>
-				<div class="video-mo-01">
-					<iframe src="https://www.youtube.com/embed/5k1hSu2gdKE?rel=0&amp;showinfo=0" allowfullscreen></iframe>
+				<div class="video-mo-01"> {% endcomment %}
+					{% comment %} <iframe src="https://www.youtube.com/embed/5k1hSu2gdKE?rel=0&amp;showinfo=0" allowfullscreen></iframe> {% endcomment %}
+					{% comment %} <video id="local-video" width="100%" controls>
+						<source src="{% static 'arcadia/videos/promo.mp4' %}" type="video/mp4">
+						Your browser does not support video.
+					</video>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> {% endcomment %}
 
 
 
@@ -120,5 +157,10 @@
 	<script src="{% static 'arcadia/js/main.js' %}"></script>
 	{% comment %} <script src="{% static 'arcadia/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
 
+	<script src="{% static 'arcadia/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'arcadia/js/main.js' %}"></script>
+
+    
+    
 </body>
 </html>
