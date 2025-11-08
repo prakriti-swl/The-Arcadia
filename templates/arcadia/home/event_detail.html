@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="event-detail-section">
+    <div class="container">
+        <h2>{{ event.title }}</h2>
+        <p><strong>Event Date:</strong> {{ event.event_time|date:"l, d F Y, h:i A" }}</p>
+        <img src="{{ event.event_image.url }}" alt="{{ event.title }}" class="img-fluid my-3">
+        <div class="event-description">
+            <p>{{ event.description|linebreaks }}</p>
+        </div>
+        {% if event.background_image %}
+        <div class="event-background mt-4">
+            <img src="{{ event.background_image.url }}" alt="{{ event.title }} background" class="img-fluid">
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

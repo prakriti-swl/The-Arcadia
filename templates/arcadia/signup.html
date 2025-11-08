@@ -1,24 +1,8 @@
-{% comment %} <div class="section-signup bg1-pattern p-t-85 p-b-85">
-	<form class="flex-c-m flex-w flex-col-c-m-lg p-l-5 p-r-5">
-		<span class="txt5 m-10">
-			Specials Sign up
-		</span>
-		{% csrf_token %}
-		<div class="wrap-input-signup size17 bo2 bo-rad-10 bgwhite pos-relative txt10 m-10">
-			<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email-address" placeholder="Email Address">
-			<i class="fa fa-envelope ab-r-m m-r-18" aria-hidden="true"></i>
-		</div>
-
-		<!-- Button3 -->
-		<button type="submit" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">
-			Sign-up
-		</button>
-	</form>
-</div> {% endcomment %}
-
-
 <div class="section-signup bg1-pattern p-t-85 p-b-85">
-	<form action="{% url 'newsletter' %}" method="POST" class="flex-c-m flex-w flex-col-c-m-lg p-l-5 p-r-5">
+
+	<div id="signup_message"></div>
+
+	<form id="signup_form" action="{% url 'newsletter' %}" method="POST" class="flex-c-m flex-w flex-col-c-m-lg p-l-5 p-r-5">
 		{% csrf_token %}
 		<span class="txt5 m-10">Specials Sign up</span>
 
@@ -32,3 +16,45 @@
 		</button>
 	</form>
 </div>
+
+<script>
+document.getElementById("signup_form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let form = this;
+    let formData = new FormData(form);
+    let messageBox = document.getElementById("signup_message");
+
+    fetch(form.action, {
+        method: "POST",
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        messageBox.innerHTML = data.message;
+        messageBox.style.display = "block";
+        messageBox.style.width = "100%";
+        messageBox.style.maxWidth = "350px";
+        messageBox.style.textAlign = "center";
+        messageBox.style.fontSize = "15px";
+        messageBox.style.padding = "8px 12px";
+        messageBox.style.borderRadius = "10px";
+        messageBox.style.margin = "0 auto 10px auto";
+        messageBox.style.color = "#fff";
+
+        if (data.success) {
+            messageBox.style.backgroundColor = "green";
+            form.reset();
+        } else {
+            messageBox.style.backgroundColor = "red";
+        }
+
+        setTimeout(() => {
+            messageBox.innerHTML = "";
+            messageBox.style.backgroundColor = "transparent";
+        }, 3000);
+    })
+    .catch(err => console.log("Error:", err));
+});
+</script>

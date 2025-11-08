@@ -20,13 +20,13 @@
     </h3>
 
     <p class="t-center size32 m-l-r-auto">
-        Fusce at risus eget mi auctor pulvinar. Suspendisse maximus venenatis pretium. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam purus purus, lacinia a scelerisque in, luctus vel felis. Donec odio diam, dignissim a efficitur at, efficitur et est. Pellentesque semper est ut pulvinar ullamcorper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla et leo accumsan, egestas velit ac, fringilla tortor. Sed varius justo sed luctus mattis.
+        Welcome to The Arcadia — where every moment is crafted to feel like a beautiful escape. We blend cozy elegance with a warm, inviting atmosphere to create the perfect spot for gatherings, celebrations, or simple peaceful breaks from everyday life. Our menu brings together fresh, flavorful and thoughtfully prepared dishes, inspired by both local tastes and global favorites. Whether you’re here for a morning coffee, a hearty meal, or a sweet treat with friends, The Arcadia is designed to make you feel at home — comfortable, cared for, and truly delighted. Join us and experience a place where good food, good company, and good vibes come together effortlessly.    
     </p>
 </section>
 
 
 <!-- Video -->
-<section class="section-video parallax100" style="background-image: url(images/header-menu-01.jpg);">
+{% comment %} <section class="section-video parallax100" style="background-image: url(images/header-menu-01.jpg);">
     <div class="content-video t-center p-t-225 p-b-250">
         <span class="tit2 p-l-15 p-r-15">
             Discover
@@ -44,7 +44,14 @@
             </div>
         </div>
     </div>
-</section>
+</section> {% endcomment %}
+
+<a href="{% url 'video' %}" class="btn-play ab-center size16 hov-pointer m-l-r-auto m-t-43 m-b-33">
+    <div class="flex-c-m sizefull bo-cir bgwhite color1 hov1 trans-0-4">
+        <i class="fa fa-play fs-18"></i>
+    </div>
+</a>
+
 
 
 <!-- Delicious & Romantic-->

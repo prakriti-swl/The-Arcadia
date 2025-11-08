@@ -13,28 +13,28 @@
 			</div>
 
 			<div class="row">
-				{% for popular_post in popular_posts%}
+				{% for home_post in home_posts%}
 				<div class="col-md-4 p-t-30">
 					<!-- Block1 -->
 					<div class="blo1">
 						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="{% url 'post-detail' popular_post.pk %}"><img src="{{ popular_post.featured_image.url}}" alt="IMG-INTRO" width = "250px" height = "200px"></a>
+							<a href="{% url 'post-detail' home_post.pk %}"><img src="{{ home_post.featured_image.url}}" alt="IMG-INTRO" width = "250px" height = "200px"></a>
 
 							<div class="time-blog">
-								{{ popular_post.published_at|date:"d F, Y" }}
+								{{ home_post.published_at|date:"d F, Y" }}
 							</div>
 						</div>
 
 						<div class="wrap-text-blo1 p-t-35">
-							<a href="{% url 'post-detail' popular_post.pk%}"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								{{ popular_post.title }}
+							<a href="{% url 'post-detail' home_post.pk%}"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								{{ home_post.title }}
 							</h4></a>
 
 							<p class="m-b-20">
 								{{ post.content|striptags|truncatewords:15 }}
 							</p>
 
-							<a href="{% url 'post-detail' popular_post.pk%}" class="txt4">
+							<a href="{% url 'post-detail' home_post.pk%}" class="txt4">
 								Continue Reading
 								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 							</a>

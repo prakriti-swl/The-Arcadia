@@ -3,7 +3,7 @@
         Most popular
     </h4>
 
-    {% for post in posts %}
+    {% for post in popular_posts %}
     <ul>
         <li class="flex-w m-b-25">
             <div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
@@ -15,7 +15,7 @@
             <div class="size28">
                 <a href="{% url 'post-detail' post.pk %}" class="dis-block txt28 m-b-8">
                     {{ post.title|truncatechars:30 }}
-                </a>
+                </a> ({{ post.views_count }})
 
                 <span class="txt14">
                     {{ post.published_at|timesince }}

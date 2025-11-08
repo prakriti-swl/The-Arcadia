@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 class TimeStampModel(models.Model):
@@ -50,18 +51,39 @@ class Comment(TimeStampModel):
     def __str__(self):
         return f"{self.email} |  {self.comment[:70]}"
     
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('post-detail', kwargs={'pk': self.pk})
+    
 
 # Event model
 class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    event_time = models.CharField(max_length=100)
-
+    event_time = models.DateTimeField()
     background_image = models.ImageField(upload_to='events/backgrounds/')
     event_image = models.ImageField(upload_to='events/images/')
+    # slug = models.SlugField(blank=True, unique=True)
 
     def __str__(self):
         return self.title
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         base_slug = slugify(self.title)
+    #         slug = base_slug
+    #         num = 1
+    #         # Ensure uniqueness
+    #         while Event.objects.filter(slug=slug).exists():
+    #             slug = f"{base_slug}-{num}"
+    #             num += 1
+    #         self.slug = slug
+    #     super().save(*args, **kwargs)
+
+    # def short_description(self, length=100):
+    #     """Return a truncated description for previews."""
+    #     return self.description[:length] + "..." if len(self.description) > length else self.description
+    
 
 class Contact(TimeStampModel):
     message = models.TextField()

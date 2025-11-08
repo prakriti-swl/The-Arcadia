@@ -1,65 +1,58 @@
-{% extends 'arcadia/base.html' %}
 {% load static %}
 
-{% block content %}
-{% comment %} {% for post in posts %} {% endcomment %}
-    <div class="col-md-8 col-lg-9">
-        <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
-            <!-- Block4 -->
-            <div class="blo4 p-b-63">
-                <!-- - -->
-                <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
-                    <a href="{% url 'post-detail' post.pk%}">
-                        <img src="{{ post.featured_image.url }}" alt="IMG-BLOG">
-                    </a>
+    <div class="p-t-80 p-b-124 bo5-r p-r-50 h-full p-r-0-md bo-none-md">
+        <!-- Block4 -->
+        <div class="blo4 p-b-63">
+            <!-- - -->
+            <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
+                <a href="{% url 'post-detail' post.pk%}">
+                    <img src="{{ post.featured_image.url }}" alt="IMG-BLOG">
+                </a>
 
-                    <div class="date-blo4 flex-col-c-m">
-                        <span class="txt30 m-b-4">
-                            {{ post.published_at|date:"d"}}
-                        </span>
+                <div class="date-blo4 flex-col-c-m">
+                    <span class="txt30 m-b-4">
+                        {{ post.published_at|date:"d"}}     
+                    </span>
 
-                        <span class="txt31">
-                            {{ post.published_at|date:"M, Y"}}
-                        </span>
-                    </div>
-                </div>
-
-                <!-- - -->
-                <div class="text-blo4 p-t-33">
-                    <h4 class="p-b-16">
-                        <a href="{% url 'post-detail' post.pk%}" class="tit9">{{ post.title }}</a>
-                    </h4>
-
-                    <div class="txt32 flex-w p-b-24">
-                        <span>
-                            {{ post.author.username|lower }}
-                            <span class="m-r-6 m-l-4">|</span>
-                        </span>
-
-                        <span>
-                            {{ post.published_at|date:"d F, Y" }}
-                            <span class="m-r-6 m-l-4">|</span>
-                        </span>
-
-                        <span>
-                            {{ post.tag.all|join:"," }}
-                            <span class="m-r-6 m-l-4">|</span>
-                        </span>
-
-                        <span>
-                            {{ post.comment_set.count}}
-                        </span>
-                    </div>
-
-                    <p>
-                        {{ post.content|striptags|truncatewords:30 }}
-                    </p>
+                    <span class="txt31">
+                        {{ post.published_at|date:"M, Y"}}
+                    </span>
                 </div>
             </div>
 
-            <!-- Leave a comment -->
-            {% include 'arcadia/blog/left/comment.html' %}
+            <!-- - -->
+            <div class="text-blo4 p-t-33">
+                <h4 class="p-b-16">
+                    <a href="{% url 'post-detail' post.pk%}" class="tit9">{{ post.title }}</a>
+                </h4>
+
+                <div class="txt32 flex-w p-b-24">
+                    <span>
+                        {{ post.author.username|lower }}
+                        <span class="m-r-6 m-l-4">|</span>
+                    </span>
+
+                    <span>
+                        {{ post.published_at|date:"d F, Y" }}
+                        <span class="m-r-6 m-l-4">|</span>
+                    </span>
+
+                    <span>
+                        {{ post.tag.all|join:"," }}
+                        <span class="m-r-6 m-l-4">|</span>
+                    </span>
+
+                    <span>
+                        {{ post.comment_set.count}}
+                    </span>
+                </div>
+
+                <p>
+                    {{ post.content|striptags|truncatewords:30 }}
+                </p>
+            </div>
         </div>
+
+        <!-- Leave a comment -->
+        {% include 'arcadia/blog/left/comment.html' %}
     </div>
-{% comment %} {% endfor %} {% endcomment %}
-{% endblock %}
