@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 
 from django.views.generic import TemplateView, ListView, View, DetailView
-from arcadia_app.models import Newsletter, Post, Event, Category 
+from arcadia_app.models import Newsletter, Post, Event, Category , Reservation
 
-from arcadia_app.forms import  ContactForm, NewsletterForm, CommentForm
+from arcadia_app.forms import  ContactForm, NewsletterForm, CommentForm, ReservationForm
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils import timezone
+
 
 
 class HomeView(TemplateView):
@@ -115,8 +116,53 @@ class AboutView(TemplateView):
 class DetailedMenuView(TemplateView):
     template_name = "arcadia/detailed_menu.html"
 
+
+
 class ReservationView(TemplateView):
     template_name = "arcadia/reservation.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = ReservationForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ReservationForm(request.POST)
+
+
+        # date = request.POST.get('date')
+
+        # Convert MM/DD/YYYY → YYYY-MM-DD to fix ValidationError
+        from datetime import datetime
+        raw_date = request.POST.get("date")
+        date = datetime.strptime(raw_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        # Update form data so Django saves correct date
+        form.data = form.data.copy()
+        form.data['date'] = date
+
+        time = request.POST.get('time')
+        email = request.POST.get('email')
+
+        #  Check for existing reservation
+        existing = Reservation.objects.filter(date=date, time=time, email=email).first()
+
+        if existing:
+            messages.error(
+                request,
+                f"You already booked a table on {existing.date} at {existing.time}!"
+            )
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Table booked successfully!")
+        else:
+            messages.error(request, "There was an error. Please check your inputs.")
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    
+
+
+
 
 class GalleryView(TemplateView):
     template_name = "arcadia/gallery.html"

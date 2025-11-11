@@ -1,4 +1,101 @@
 {% extends "arcadia/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15"
+         style="background-image: url({% static 'arcadia/images/bg-title-page-02.jpg' %});">
+    <h2 class="tit6 t-center">Gallery</h2>
+</section>
+
+<div class="section-gallery p-t-118 p-b-100">
+
+    <!-- Category Buttons -->
+    <div class="wrap-label-gallery flex-w flex-sb-m m-l-r-auto flex-col-c-sm m-b-60">
+        <button class="label-gallery txt26 trans-0-4 is-actived" data-filter="*">All Photo</button>
+        <button class="label-gallery txt26 trans-0-4" data-filter="interior">Interior</button>
+        <button class="label-gallery txt26 trans-0-4" data-filter="food">Food</button>
+        <button class="label-gallery txt26 trans-0-4" data-filter="events">Events</button>
+        <button class="label-gallery txt26 trans-0-4" data-filter="guests">Vip guests</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="wrap-gallery flex-w p-l-25 p-r-25" id="galleryGrid">
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="events guests">
+            <img src="{% static 'arcadia/images/photo-gallery-13.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="food">
+            <img src="{% static 'arcadia/images/photo-gallery-14.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="events">
+            <img src="{% static 'arcadia/images/photo-gallery-15.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="food">
+            <img src="{% static 'arcadia/images/photo-gallery-16.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="food">
+            <img src="{% static 'arcadia/images/photo-gallery-17.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="interior guests">
+            <img src="{% static 'arcadia/images/photo-gallery-18.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="interior">
+            <img src="{% static 'arcadia/images/photo-gallery-19.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="interior">
+            <img src="{% static 'arcadia/images/photo-gallery-20.jpg' %}">
+        </div>
+
+        <div class="item-gallery bo-rad-10 hov-img-zoom" data-category="events">
+            <img src="{% static 'arcadia/images/photo-gallery-21.jpg' %}">
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}
+
+
+{% block extra_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".label-gallery");
+    const items = document.querySelectorAll(".item-gallery");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const filter = button.dataset.filter;
+
+            // Update active button state
+            buttons.forEach(b => b.classList.remove("is-actived"));
+            button.classList.add("is-actived");
+
+            // Filter items
+            items.forEach(item => {
+                const categories = item.dataset.category.split(" ");
+                if (filter === "*" || categories.includes(filter)) {
+                    item.style.display = "block";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+    });
+});
+</script>
+{% endblock extra_scripts %}
+
+
+
+
+{% comment %} {% extends "arcadia/base.html" %}
 
 {% load static %}
 
@@ -126,4 +223,5 @@
     </div>
 </div>
 
-{% endblock content %}
+{% endblock content %} {% endcomment %}
+
