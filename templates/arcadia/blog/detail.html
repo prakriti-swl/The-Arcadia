@@ -35,4 +35,49 @@
     </div>
 </section>
 
+<!-- ✅ ADDED SweetAlert Toast Notifications -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const missing = params.get("missing");
+
+    // ✅ Reusable toast popup function
+    function showToast(icon, message, bgColor) {
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            background: bgColor,
+            color: "#fff",
+            icon: icon,
+            title: message,
+        });
+    }
+
+    // ✅ Success Toast
+    if (params.get("success") === "comment") {
+        showToast("success", "Sent", "#28a745");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // ✅ Post not found Toast
+    if (params.get("error") === "invalid_post") {
+        showToast("error", "The comment wasn't posted. Invalid post.", "#dc3545");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    // ✅ Invalid / Missing Fields Toast
+    if (params.get("error") === "invalid") {
+        let message = "The comment wasn't posted.";
+        if (missing) {
+            message = `Please fill required field(s): ${missing}`;
+        }
+        showToast("error", message, "#dc3545");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
+<!-- ✅ END of Toast Section -->
+
 {% endblock content %}

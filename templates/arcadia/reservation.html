@@ -29,25 +29,6 @@
                 <form class="wrap-form-booking" method="POST" action="">
                     {% csrf_token %}
 
-                    <!-- Reservation Messages -->
-                    {% comment %} {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} text-center" style="margin-top:10px;">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %} {% endcomment %}
-
-                    {% if messages %}
-                        <div id="popup-overlay"></div>
-                        {% for message in messages %}
-                            <div id="popupMessage" class="popup-message {{ message.tags }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    <!-- End Messages -->
-
                     <div class="row">
                         <div class="col-md-6">
                             <!-- Date -->
@@ -150,4 +131,47 @@
         </div>
     </div>
 </section>
+
+
+<!-- Minimal Toast Popup Version -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const bookedDate = params.get("date");
+    const bookedTime = params.get("time");
+
+    // Small toast-style popup
+    function showToast(icon, message, bgColor) {
+        Swal.fire({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3500,
+            timerProgressBar: true,
+            background: bgColor,
+            color: "#fff",
+            icon: icon,
+            title: message,
+        });
+    }
+
+    if (params.get("success") === "true") {
+        // Green success toast
+        showToast("success", "Reservation successful!", "#28a745");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    if (params.get("error") === "invalid") {
+        // Red error toast
+        showToast("error", "Reservation failed! Please try again.", "#dc3545");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
+    if (params.get("error") === "exists") {
+        // Orange warning toast with small text
+        showToast("warning", `You already booked on ${bookedDate} at ${bookedTime}.`, "#ff9800");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
+
 {% endblock content %}

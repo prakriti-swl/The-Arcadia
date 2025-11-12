@@ -34,7 +34,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/css/main.css' %}">
 <!--===============================================================================================-->
 	<!-- CSS for popup -->
-.popup-message {
+{% comment %} .popup-message {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -48,9 +48,9 @@
     color: #333;
     box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
     display: none;
-}
+} {% endcomment %}
 
-#popup-overlay {
+{% comment %} #popup-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -63,7 +63,7 @@
 
 /* Optional success / error colors */
 .success { border-left: 6px solid #28a745; }
-.error { border-left: 6px solid #dc3545; }
+.error { border-left: 6px solid #dc3545; } {% endcomment %}
 
 
 </head>
@@ -195,15 +195,12 @@
 <!--===============================================================================================-->
 	<script type="text/javascript" src="{% static 'arcadia/vendor/lightbox2/js/lightbox.min.js' %}"></script>
 <!--===============================================================================================-->
-	<script src="{% static 'arcadia/js/main.js' %}"></script>
 	{% comment %} <script src="{% static 'arcadia/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
-
-	<script src="{% static 'arcadia/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'arcadia/js/main.js' %}"></script>
 
 
 	<!-- JS for popup -->
-<script>
+{% comment %} <script>
     document.addEventListener("DOMContentLoaded", function() {
         const popup = document.getElementById("popupMessage");
         const overlay = document.getElementById("popup-overlay");
@@ -223,30 +220,36 @@
             }, 3000); // Popup visible for 3 seconds
         }
     });
-</script>
-    
-
-<!-- Isotope JS  -->
- {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        var $grid = $('.isotope-grid').isotope({
-            itemSelector: '.isotope-item',
-            layoutMode: 'fitRows'
-        });
-
-        $('.label-gallery').on('click', function() {
-            var filterValue = $(this).attr('data-filter');
-            $grid.isotope({ filter: filterValue });
-
-            $('.label-gallery').removeClass('is-actived');
-            $(this).addClass('is-actived');
-        });
-    });
 </script> {% endcomment %}
+    
+<!-- Isotope + imagesLoaded -->
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script>
+  $(document).ready(function() {
+
+    var $grid = $('.wrap-gallery');
+
+    // Initialize after images load
+    $grid.imagesLoaded(function() {
+      $grid.isotope({
+        itemSelector: '.isotope-item',
+        layoutMode: 'fitRows'
+      });
+    });
+
+    // Filter buttons
+    $('.label-gallery').on('click', function() {
+      $('.label-gallery').removeClass('is-actived');
+      $(this).addClass('is-actived');
+
+      var filterValue = $(this).attr('data-filter');
+      $grid.isotope({ filter: filterValue });
+    });
+
+  });
+</script>
+
 
 
 </body>

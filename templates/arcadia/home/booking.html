@@ -17,25 +17,6 @@
 				<form class="wrap-form-booking" method="POST" action="{% url 'reservation' %}">
 					{% csrf_token %}
 
-                    <!-- Reservation Messages -->
-                    {% comment %} {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }} text-center" style="margin-top:10px;">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %} {% endcomment %}
-
-
-
-					{% comment %} {% if messages %}
-					    {% for message in messages %}
- 					       <div id="popupMessage" class="popup-message {{ message.tags }}">
-            					{{ message }}
-        					</div>
-    					{% endfor %}
-					{% endif %} {% endcomment %}
-
 					{% if messages %}
 						<div id="popup-overlay"></div>
 						{% for message in messages %}

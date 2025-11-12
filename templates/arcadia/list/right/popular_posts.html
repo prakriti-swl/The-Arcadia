@@ -15,7 +15,7 @@
             <div class="size28">
                 <a href="{% url 'post-detail' post.pk %}" class="dis-block txt28 m-b-8">
                     {{ post.title|truncatechars:30 }}
-                </a> ({{ post.views_count }})
+                </a> ({{ post.views_count }} views)
 
                 <span class="txt14">
                     {{ post.published_at|timesince }}

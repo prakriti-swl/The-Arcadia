@@ -86,10 +86,10 @@ class Event(models.Model):
     
 
 class Contact(TimeStampModel):
-    message = models.TextField()
     name = models.CharField(max_length = 100)
     email = models.EmailField()
-    subject = models.CharField(max_length = 200)
+    phone = models.CharField(max_length=15)
+    message = models.TextField()
 
     def __str__(self):
         return self.name

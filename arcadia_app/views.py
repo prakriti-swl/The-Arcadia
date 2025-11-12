@@ -7,6 +7,7 @@ from arcadia_app.forms import  ContactForm, NewsletterForm, CommentForm, Reserva
 from django.contrib import messages
 from django.http import JsonResponse
 from django.utils import timezone
+from datetime import datetime
 
 
 
@@ -130,12 +131,15 @@ class ReservationView(TemplateView):
         form = ReservationForm(request.POST)
 
 
-        # date = request.POST.get('date')
-
-        # Convert MM/DD/YYYY → YYYY-MM-DD to fix ValidationError
-        from datetime import datetime
+       # accept either DD/MM/YYYY or MM/DD/YYYY automatically
         raw_date = request.POST.get("date")
-        date = datetime.strptime(raw_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+        try:
+            # Try parsing as DD/MM/YYYY first (your input)
+            date = datetime.strptime(raw_date, "%d/%m/%Y").strftime("%Y-%m-%d")
+        except ValueError:
+            # Fallback if calendar sends MM/DD/YYYY (in some browsers)
+            date = datetime.strptime(raw_date, "%m/%d/%Y").strftime("%Y-%m-%d")
+
         # Update form data so Django saves correct date
         form.data = form.data.copy()
         form.data['date'] = date
@@ -147,50 +151,38 @@ class ReservationView(TemplateView):
         existing = Reservation.objects.filter(date=date, time=time, email=email).first()
 
         if existing:
-            messages.error(
-                request,
-                f"You already booked a table on {existing.date} at {existing.time}!"
-            )
-            return redirect(request.META.get('HTTP_REFERER', '/'))
-        
+            # redirect with query param instead of messages
+            return redirect(f"{request.path}?error=exists&date={date}&time={time}")
+
         if form.is_valid():
             form.save()
-            messages.success(request, "Table booked successfully!")
+            # redirect with query param instead of message framework
+            return redirect(f"{request.path}?success=true")
         else:
-            messages.error(request, "There was an error. Please check your inputs.")
-        return redirect(request.META.get('HTTP_REFERER', '/'))
+            return redirect(f"{request.path}?error=invalid")
+
     
-
-
-
-
-class GalleryView(TemplateView):
-    template_name = "arcadia/gallery.html"
 
 
 class ContactView(View):
     template_name = "arcadia/contact.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        form = ContactForm()
+        return render(request, self.template_name, {"form": form})
     
     def post(self, request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(
-                request, "Successfully submitted your query. We will contact you soon."
-            )
-            return redirect("contact")
+            return JsonResponse({"status": "success", "message": "Message sent successfully!"})
         else:
-            messages.error(
-                request, "Cannot submit your query. Please make sure all fields are valid.",
-            )
-            return render(
-                request,
-                self.template_name,
-                {"form": form},
-            )
+            # Collect missing fields
+            missing_fields = [field for field in form.errors]
+            message = "Message wasn't sent. Please fill: " + ", ".join(missing_fields)
+            return JsonResponse({"status": "error", "message": message})
+        
+        
     
 class PostListView(ListView):
     model = Post
@@ -360,7 +352,7 @@ class PostSearchView(View):
             },
         )
     
-class CommentView(View):
+# class CommentView(View):
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
         post_id = request.POST["post"]
@@ -383,7 +375,38 @@ class CommentView(View):
             "arcadia/blog/left/comment.html",
             {"form": form, "post": post}
         )
-        
+
+
+class CommentView(View):
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        post_id = request.POST.get("post")
+
+        try:
+            post = Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            # ✅ CHANGED: handle missing post safely
+            return redirect("/?error=invalid_post")
+
+        # ✅ CHANGED: form validation + success/error redirects
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+
+            # ✅ Redirect with success parameter (no get_absolute_url)
+            return redirect(f"/blog/{post.id}/?success=comment")
+        else:
+            # ✅ Collect which fields have errors
+            missing_fields = [field.label for field in form if field.errors]
+            missing_str = ",".join(missing_fields) if missing_fields else "fields"
+
+            # ✅ Redirect back with error + missing field info
+            return redirect(f"/blog/{post.id}/?error=invalid&missing={missing_str}")
+
+class GalleryView(TemplateView):
+    template_name = "arcadia/gallery.html"
+
 
 class VideoView(TemplateView):
     template_name = 'arcadia/video.html'
