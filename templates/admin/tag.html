@@ -1,0 +1,33 @@
+{% extends "admin/dash_base.html" %}
+
+{% block content %}
+<h2>Tag List</h2>
+        <a href="{% url 'tag-create' %}" class="btn btn-success">Add New Tag</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Tag</th>
+                    <th>No. of post</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Demo Data -->
+                {% for tag in tags %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ tag.name }}</td>
+                    <td>{{ tag.post_set.count }}</td>
+                    <td class="d-flex gap-2">
+                        <a href="{% url 'tag-update' tag.pk %}" class="btn btn-success mt-3">Edit</a>
+                        <a href="{% url 'tag-delete' tag.pk %}" class="btn btn-danger ">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    
+{% endblock content %}

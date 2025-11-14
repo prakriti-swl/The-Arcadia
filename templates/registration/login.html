@@ -1,0 +1,29 @@
+{% extends "arcadia/base.html" %}
+{% block content %}
+
+{% if form.errors and form.non_field_errors %}
+    <div class="alert alert-danger" style="text-align: center;">{{ form.non_field_errors }}</div>
+{% endif %}
+
+<div class="login-container" style="max-width: 360px; margin: 60px auto; background: #f9f9f9; padding: 30px; box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.08); border-radius: 12px;">
+    <h2 style="text-align: center; font-size: 26px; margin-bottom: 25px; font-weight: 600; color: #444;">Welcome Back</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label for="username" class="form-label" style="font-weight: 500; color: #666;">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="Enter username" style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; background-color: #fff;" />
+            <div style="color: #d9534f;">{{ form.username.errors }}</div>
+        </div>
+        <div class="mb-4">
+            <label for="password" class="form-label" style="font-weight: 500; color: #666;">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Enter password" style="padding: 12px; border-radius: 8px; border: 1px solid #ccc; background-color: #fff;" />
+            <div style="color: #d9534f;">{{ form.password.errors }}</div>
+        </div>
+        <button class="btn btn-primary" style="width: 100%; padding: 12px; background-color: #007bff; border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: 500; cursor: pointer;">Sign In</button>
+    </form>
+    {% comment %} <div style="text-align: center; margin-top: 20px;">
+        <a href="#" style="color: #007bff; font-size: 14px;">Forgot Password?</a>
+    </div> {% endcomment %}
+</div>
+
+{% endblock content %}

@@ -4,10 +4,11 @@ from django.views.generic import TemplateView, ListView, View, DetailView
 from arcadia_app.models import Newsletter, Post, Event, Category , Reservation
 
 from arcadia_app.forms import  ContactForm, NewsletterForm, CommentForm, ReservationForm
-from django.contrib import messages
 from django.http import JsonResponse
 from django.utils import timezone
 from datetime import datetime
+from django.conf import settings
+import os
 
 
 
@@ -352,29 +353,6 @@ class PostSearchView(View):
             },
         )
     
-# class CommentView(View):
-    def post(self, request, *args, **kwargs):
-        form = CommentForm(request.POST)
-        post_id = request.POST["post"]
-
-        try:
-            post = Post.objects.get(id=post_id)
-        except Post.DoesNotExist:
-            return redirect('home')  # fallback
-
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-
-            # REDIRECT WITHOUT ERROR
-            return redirect(post.get_absolute_url())
-
-        return render(
-            request,
-            "arcadia/blog/left/comment.html",
-            {"form": form, "post": post}
-        )
 
 
 class CommentView(View):
@@ -385,27 +363,44 @@ class CommentView(View):
         try:
             post = Post.objects.get(id=post_id)
         except Post.DoesNotExist:
-            # ✅ CHANGED: handle missing post safely
+            # CHANGED: handle missing post safely
             return redirect("/?error=invalid_post")
 
-        # ✅ CHANGED: form validation + success/error redirects
+        # CHANGED: form validation + success/error redirects
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
 
-            # ✅ Redirect with success parameter (no get_absolute_url)
-            return redirect(f"/blog/{post.id}/?success=comment")
+            # Redirect with success parameter (no get_absolute_url)
+            return redirect(f"/post-detail/{post.id}/?success=comment")
         else:
-            # ✅ Collect which fields have errors
+            # Collect which fields have errors
             missing_fields = [field.label for field in form if field.errors]
             missing_str = ",".join(missing_fields) if missing_fields else "fields"
 
-            # ✅ Redirect back with error + missing field info
-            return redirect(f"/blog/{post.id}/?error=invalid&missing={missing_str}")
+            # Redirect back with error + missing field info
+            return redirect(f"/post-detail/{post.id}/?error=invalid&missing={missing_str}")
+
 
 class GalleryView(TemplateView):
     template_name = "arcadia/gallery.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Path to your static images folder
+        images_dir = os.path.join(settings.BASE_DIR, "static", "arcadia", "images")
+
+        # Collect all filenames
+        images = []
+        if os.path.exists(images_dir):
+            for file in os.listdir(images_dir):
+                if file.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp')):
+                    images.append("arcadia/images/" + file)
+
+        context["images"] = images
+        return context
 
 
 class VideoView(TemplateView):

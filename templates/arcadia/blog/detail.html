@@ -14,7 +14,7 @@
         <div class="row ">
             <!--Post Detail-->
             <div class="col-md-8 col-lg-9">
-                {% include 'arcadia/blog/left/post_detail.html' %}
+                {% include "arcadia/blog/left/post_detail.html" %}
 
             </div>
 
@@ -35,13 +35,13 @@
     </div>
 </section>
 
-<!-- ✅ ADDED SweetAlert Toast Notifications -->
+<!-- ADDED SweetAlert Toast Notifications -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     const params = new URLSearchParams(window.location.search);
     const missing = params.get("missing");
 
-    // ✅ Reusable toast popup function
+    // Reusable toast popup function
     function showToast(icon, message, bgColor) {
         Swal.fire({
             toast: true,
@@ -56,19 +56,19 @@
         });
     }
 
-    // ✅ Success Toast
+    // Success Toast
     if (params.get("success") === "comment") {
         showToast("success", "Sent", "#28a745");
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // ✅ Post not found Toast
+    // Post not found Toast
     if (params.get("error") === "invalid_post") {
         showToast("error", "The comment wasn't posted. Invalid post.", "#dc3545");
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // ✅ Invalid / Missing Fields Toast
+    // Invalid / Missing Fields Toast
     if (params.get("error") === "invalid") {
         let message = "The comment wasn't posted.";
         if (missing) {
@@ -78,6 +78,6 @@
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 </script>
-<!-- ✅ END of Toast Section -->
+<!-- END of Toast Section -->
 
 {% endblock content %}

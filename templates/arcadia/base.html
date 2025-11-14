@@ -5,6 +5,10 @@
 	<title>Arcadia</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- FontAwesome for login/logout icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
 	{% comment %} <link rel="stylesheet" href="{% static 'arcadia/css/bootstrap.min.css' %}"> {% endcomment %}
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="{% static 'arcadia/images/icons/favicon1.png' %}"/>
@@ -33,74 +37,14 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'arcadia/css/main.css' %}">
 <!--===============================================================================================-->
-	<!-- CSS for popup -->
-{% comment %} .popup-message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px 30px;
-    border-radius: 8px;
-    z-index: 2001;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-    box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
-    display: none;
-} {% endcomment %}
-
-{% comment %} #popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 2000;
-    display: none;
-}
-
-/* Optional success / error colors */
-.success { border-left: 6px solid #28a745; }
-.error { border-left: 6px solid #dc3545; } {% endcomment %}
-
-
 </head>
 
 
 <body class="animsition">
 
 	<!-- Header -->
-	{% include "arcadia/header.html" %}
-	{% comment %} {% if messages %}
-		<div class="alert-container" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 9999;">
-			{% for message in messages %}
-			<div class="alert-message" style="
-				padding: 12px 20px;
-				margin-bottom: 10px;
-				border-radius: 6px;
-				background: {% if message.tags == 'success' %}#28a745{% else %}#dc3545{% endif %};
-				color: white;
-				font-weight: 600;
-				text-align: center;
-				width: 300px;
-				box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-			">
-				{{ message }}
-			</div>
-			{% endfor %}
-		</div>
-	{% endif %} {% endcomment %}
-
-	{% if messages %}
-		<div class="alert-container">
-			{% for message in messages %}
-				<div class="alert alert-{{ message.tags }}">
-					{{ message }}
-				</div>
-			{% endfor %}
-		</div>
+	{% if request.resolver_match.url_name != 'login' %}
+		{% include "arcadia/header.html" %}
 	{% endif %}
 
 	{% include "arcadia/sidebar.html" %}
@@ -111,10 +55,14 @@
 
 
 	<!--signup-->
-	{% include "arcadia/signup.html" %}
+	{% if request.resolver_match.url_name != 'login' %}
+		{% include "arcadia/signup.html" %}
+	{% endif %}
 
 	<!-- Footer -->
-	{% include "arcadia/footer.html" %}
+	{% if request.resolver_match.url_name != 'login' %}
+		{% include "arcadia/footer.html" %}
+	{% endif %}
 
 
 	<!-- Back to top -->
@@ -128,7 +76,7 @@
 	<div id="dropDownSelect1"></div>
 
 
-	<!-- ===================== VIDEO MODAL ===================== -->
+	{% comment %} <!-- ===================== VIDEO MODAL ===================== -->
 	<div class="modal fade" id="modal-video-01" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content bg-transparent border-0">
@@ -142,9 +90,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> {% endcomment %}
 
-	<script>
+	{% comment %} <script>
 		// Pause and reset video when modal closes
 		const modal = document.getElementById('modal-video-01');
 		const video = document.getElementById('arcadiaVideo');
@@ -152,11 +100,12 @@
 			video.pause();
 			video.currentTime = 0;
 		});
-	</script>
+	</script> {% endcomment %}
 
 
 
 <!--===============================================================================================-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="{% static 'arcadia/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
 <!--===============================================================================================-->
 	<script type="text/javascript" src="{% static 'arcadia/vendor/animsition/js/animsition.min.js' %}"></script>
@@ -198,31 +147,8 @@
 	{% comment %} <script src="{% static 'arcadia/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
     <script src="{% static 'arcadia/js/main.js' %}"></script>
 
-
-	<!-- JS for popup -->
-{% comment %} <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const popup = document.getElementById("popupMessage");
-        const overlay = document.getElementById("popup-overlay");
-
-        if(popup) {
-            popup.style.display = "block";
-            overlay.style.display = "block";
-
-            setTimeout(() => {
-                popup.style.opacity = "0";
-                overlay.style.opacity = "0";
-                
-                setTimeout(() => {
-                    popup.style.display = "none";
-                    overlay.style.display = "none";
-                }, 300);
-            }, 3000); // Popup visible for 3 seconds
-        }
-    });
-</script> {% endcomment %}
     
-<!-- Isotope + imagesLoaded -->
+<!-- Isotope + imagesLoaded (Gallery)--> 
 <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 <script>
