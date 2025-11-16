@@ -29,39 +29,39 @@
 {% include 'arcadia/video.html' %}
 
 
-{% comment %} <section class="section-video parallax100" style="background-image: url(images/header-menu-01.jpg);">
-    <div class="content-video t-center p-t-225 p-b-250">
-        <span class="tit2 p-l-15 p-r-15">
-            Discover
-        </span>
-
-        <h3 class="tit4 t-center p-l-15 p-r-15 p-t-3">
-            Our Video
-        </h3>
-
-        <div class="btn-play ab-center size16 hov-pointer m-l-r-auto m-t-43 m-b-33" data-toggle="modal" data-target="#modal-video-01">
-            <div class="flex-c-m sizefull bo-cir bgwhite color1 hov1 trans-0-4">
-                <i class="fa fa-play fs-18 m-l-2" aria-hidden="true">
-                    <a href="{% url 'video' %}"></a>
-                </i>
-            </div>
-        </div>
-    </div>
-</section> {% endcomment %}
-
-{% comment %} <a href="{% url 'video' %}" class="btn-play ab-center size16 hov-pointer m-l-r-auto m-t-43 m-b-33">
-    <div class="flex-c-m sizefull bo-cir bgwhite color1 hov1 trans-0-4">
-        <i class="fa fa-play fs-18"></i>
-    </div>
-</a> {% endcomment %}
-
-
 
 <!-- Delicious & Romantic-->
 <section class="bg1-pattern p-t-120 p-b-105">
     <div class="container">
+
+        <!-- Restaurant View -->
+        <div class="row p-t-170">
+            <div class="col-md-6 p-b-30">
+                <div class="wrap-pic-romantic size2 bo-rad-10 hov-img-zoom m-l-r-auto">
+                    <img src="{% static 'arcadia/images/our-story-02.jpg' %}" alt="IMG-OUR">
+                </div>
+            </div>
+
+            <div id="restura-view" class="col-md-6 p-t-45 p-b-30">
+                <div class="wrap-text-romantic t-center">
+                    <span class="tit2 t-center">
+                        Breath Taking
+                    </span>
+
+                    <h3 class="tit3 t-center m-b-35 m-t-5">
+                        Restaurant Views
+                    </h3>
+
+                    <p class="t-center m-b-22 size3 m-l-r-auto">
+                        Experience a serene escape where every corner of the restaurant opens to breathtaking views that calm the mind and elevate the senses. Soft lighting, warm interiors, and panoramic scenery create a soothing ambience, making every visit feel unforgettable. It’s the perfect place to unwind, connect, and enjoy true visual tranquility.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Delicious -->
-        <div class="row">
+        <div id="recipes" class="row">
             <div class="col-md-6 p-t-45 p-b-30">
                 <div class="wrap-text-delicious t-center">
                     <span class="tit2 t-center">
@@ -69,11 +69,11 @@
                     </span>
 
                     <h3 class="tit3 t-center m-b-35 m-t-5">
-                        RECIPES
+                        FOOD
                     </h3>
 
                     <p class="t-center m-b-22 size3 m-l-r-auto">
-                        Donec quis lorem nulla. Nunc eu odio mi. Morbi nec lobortis est. Sed fringilla, nunc sed imperdiet lacinia, nisl ante egestas mi, ac facilisis ligula sem id neque.
+                        Our kitchen celebrates the art of fine dining with dishes crafted from fresh, premium ingredients and perfected through thoughtful techniques. Every plate offers balanced flavors, elegant presentation, and rich aromas that captivate from the first bite. With each creation, we aim to deliver a memorable culinary journey that delights every guest. 
                     </p>
                 </div>
             </div>
@@ -85,28 +85,27 @@
             </div>
         </div>
 
-
-        <!-- Romantic -->
-        <div class="row p-t-170">
-            <div class="col-md-6 p-b-30">
-                <div class="wrap-pic-romantic size2 bo-rad-10 hov-img-zoom m-l-r-auto">
-                    <img src="{% static 'arcadia/images/our-story-02.jpg' %}" alt="IMG-OUR">
-                </div>
-            </div>
-
+        <!-- Red Wines-->
+        <div id="red-wine" class="row p-t-170">
             <div class="col-md-6 p-t-45 p-b-30">
-                <div class="wrap-text-romantic t-center">
+                <div class="wrap-text-redwine t-center">
                     <span class="tit2 t-center">
-                        Breath Taking
+                        Red Wines
                     </span>
 
                     <h3 class="tit3 t-center m-b-35 m-t-5">
-                        Restaurant Views
+                        You Love
                     </h3>
 
                     <p class="t-center m-b-22 size3 m-l-r-auto">
-                        Fusce iaculis, quam quis volutpat cursus, tellus quam varius eros, in euismod lorem nisl in ante. Maecenas imperdiet vulputate dui sit amet vestibulum. Nulla quis suscipit nisl.
+                        Discover a curated collection of exceptional red wines selected for their depth, character, and timeless appeal. Whether you enjoy bold notes or smooth, velvety finishes, our sommelier ensures every glass complements your meal beautifully. Sip, savor, and enjoy a red wine experience designed to elevate your evening with effortless luxury.
                     </p>
+                </div>
+            </div>
+
+            <div class="col-md-6 p-b-30">
+                <div class="wrap-pic-redwine size2 bo-rad-10 hov-img-zoom m-l-r-auto">
+                    <img src="{% static 'arcadia/images/intro-04.jpg' %}" alt="IMG-WINE">
                 </div>
             </div>
         </div>
@@ -136,12 +135,12 @@
                 <!-- -Block5 -->
                 <div class="blo5 pos-relative p-t-60">
                     <div class="pic-blo5 size14 bo4 wrap-cir-pic hov-img-zoom ab-c-t">
-                        <a href="#"><img src="{% static 'arcadia/images/avatar-02.jpg' %}" alt="IGM-AVATAR"></a>
+                        <a href="#"><img src="{% static 'arcadia/images/aavatar-022.jpg' %}" alt="IGM-AVATAR"></a>
                     </div>
 
                     <div class="text-blo5 size34 t-center bo-rad-10 bo7 p-t-90 p-l-35 p-r-35 p-b-30">
                         <a href="#" class="txt34 dis-block p-b-6">
-                            Peter Hart
+                            Leo Hart
                         </a>
 
                         <span class="dis-block t-center txt35 p-b-25">
@@ -149,7 +148,8 @@
                         </span>
 
                         <p class="t-center">
-                            Donec porta eleifend mauris ut effici-tur. Quisque non velit vestibulum, lob-ortis mi eget, rhoncus nunc
+                            Chef Leo Hart is known for his clean, modern approach to fine dining. His dishes focus on precision, balance, and deeply developed flavors. With a background in European and Nordic kitchens, he brings a calm, thoughtful style to the culinary arts, creating refined plates rooted in simplicity and craftsmanship.
+
                         </p>
                     </div>
                 </div>
@@ -159,12 +159,12 @@
                 <!-- -Block5 -->
                 <div class="blo5 pos-relative p-t-60">
                     <div class="pic-blo5 size14 bo4 wrap-cir-pic hov-img-zoom ab-c-t">
-                        <a href="#"><img src="{% static 'arcadia/images/avatar-03.jpg' %}" alt="IGM-AVATAR"></a>
+                        <a href="#"><img src="{% static 'arcadia/images/avatar-033.png' %}" alt="IGM-AVATAR"></a>
                     </div>
 
                     <div class="text-blo5 size34 t-center bo-rad-10 bo7 p-t-90 p-l-35 p-r-35 p-b-30">
                         <a href="#" class="txt34 dis-block p-b-6">
-                            Joyce Bowman
+                            Mira Lane
                         </a>
 
                         <span class="dis-block t-center txt35 p-b-25">
@@ -172,7 +172,8 @@
                         </span>
 
                         <p class="t-center">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ultricies felis a sem tempus tempus.
+                            Chef Mira Lane blends subtle creativity with minimalist techniques, letting each ingredient speak for itself. Her culinary philosophy revolves around purity, seasonality, and elegance. Trained across Asia and Europe, she crafts dishes with gentle textures, controlled flavors, and graceful presentation, delivering an elevated dining experience grounded in calm sophistication.
+
                         </p>
                     </div>
                 </div>
@@ -182,12 +183,12 @@
                 <!-- -Block5 -->
                 <div class="blo5 pos-relative p-t-60">
                     <div class="pic-blo5 size14 bo4 wrap-cir-pic hov-img-zoom ab-c-t">
-                        <a href="#"><img src="{% static 'arcadia/images/avatar-05.jpg' %}" alt="IGM-AVATAR"></a>
+                        <a href="#"><img src="{% static 'arcadia/images/avatar-055.png' %}" alt="IGM-AVATAR"></a>
                     </div>
 
                     <div class="text-blo5 size34 t-center bo-rad-10 bo7 p-t-90 p-l-35 p-r-35 p-b-30">
                         <a href="#" class="txt34 dis-block p-b-6">
-                            Peter Hart
+                            Arin Vale
                         </a>
 
                         <span class="dis-block t-center txt35 p-b-25">
@@ -195,7 +196,7 @@
                         </span>
 
                         <p class="t-center">
-                            Phasellus aliquam libero a nisi varius, vitae placerat sem aliquet. Ut at velit nec ipsum iaculis posuere quis in sapien
+                            Chef Arin Vale excels in contemporary fusion built on understated luxury. His cooking style emphasizes clarity, harmony, and purposeful restraint. Drawing inspiration from global cuisines, he transforms simple ingredients into refined masterpieces. His minimalistic approach allows depth, precision, and beauty to shine through every dish he creates for discerning diners.
                         </p>
                     </div>
                 </div>

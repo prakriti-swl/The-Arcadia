@@ -9,13 +9,64 @@
 
 <!-- Contact form -->
 <section class="section-contact bg1-pattern p-t-90 p-b-113">
+
     <!-- Map -->
     <div class="container">
         <div class="map bo8 bo-rad-10 of-hidden">
-            <!-- Replace old data attributes with real map div -->
             <div id="google_map" style="height: 400px;"></div>
         </div>
     </div>
+
+    <!-- Leaflet MAP CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        #google_map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        #toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 250px;
+            padding: 15px 20px;
+            color: white;
+            border-radius: 5px;
+            display: none;
+            z-index: 9999;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        #toast.success { background-color: green; }
+        #toast.error { background-color: red; }
+    </style>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Bhaktapur Municipality Coordinates
+        const bhaktapur = [27.6721, 85.4279];
+
+        // Create Map
+        const map = L.map('google_map').setView(bhaktapur, 14);
+
+        // Add OpenStreetMap Tiles
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Add Marker
+        L.marker(bhaktapur).addTo(map)
+            .bindPopup("Arcadia Restaurant")
+            .openPopup();
+    });
+    </script>
 
     <div class="container">
         <h3 class="tit7 t-center p-b-62 p-t-105">Send us a Message</h3>
@@ -58,25 +109,6 @@
     </div>
 </section>
 
-<!-- Toast Notification CSS -->
-<style>
-#toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    min-width: 250px;
-    padding: 15px 20px;
-    color: white;
-    border-radius: 5px;
-    display: none;
-    z-index: 9999;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-#toast.success { background-color: green; }
-#toast.error { background-color: red; }
-</style>
-
 <!-- Toast HTML -->
 <div id="toast"></div>
 
@@ -88,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function showToast(message, status) {
         toast.textContent = message;
-        toast.className = status; // "success" or "error"
+        toast.className = status;
         toast.style.display = "block";
         setTimeout(() => { toast.style.display = "none"; }, 4000);
     }
@@ -120,27 +152,4 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!-- Google Maps -->
-<script>
-function initMap() {
-    const bhaktapur = { lat: 27.6721, lng: 85.4279 };
-    const map = new google.maps.Map(document.getElementById("google_map"), {
-        zoom: 14,
-        center: bhaktapur,
-        scrollwheel: false,
-        draggable: true
-    });
-
-    const marker = new google.maps.Marker({
-        position: bhaktapur,
-        map: map,
-        title: "Bhaktapur Municipality",
-        icon: "{% static 'arcadia/images/icons/icon-position-map.png' %}"
-    });
-}
-</script>
-
-<script async
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-</script>
 {% endblock content %}

@@ -6,7 +6,7 @@
             <!-- - -->
             <div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
                 <a href="{% url 'post-detail' post.pk%}">
-                    <img src="{{ post.featured_image.url }}" alt="IMG-BLOG">
+                    <img class="fixed-blog-img" src="{{ post.featured_image.url }}" alt="IMG-BLOG">
                 </a>
 
                 <div class="date-blo4 flex-col-c-m">
@@ -48,7 +48,7 @@
                 </div>
 
                 <p>
-                    {{ post.content|striptags|truncatewords:30 }}
+                    {{ post.content|safe|linebreaksbr }}
                 </p>
             </div>
         </div>

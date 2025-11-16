@@ -9,6 +9,8 @@ from django.utils import timezone
 from datetime import datetime
 from django.conf import settings
 import os
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_protect
 
 
 
@@ -29,21 +31,21 @@ class HomeView(TemplateView):
         context['intro_items'] = [
             {
                 "title": "Breath Taking Views",
-                "description": "Phasellus lorem enim, luctus ut velit eget, con-vallis egestas eros.",
+                "description": "Experience a serene escape where every corner of the restaurant opens to breathtaking views that calm the mind and elevate the senses. Soft lighting, warm interiors, and panoramic scenery create a soothing ambience, making every visit feel unforgettable. It’s the perfect place to unwind, connect, and enjoy true visual tranquility.",
                 "image": "arcadia/images/intro-01.jpg",
-                "link": "#"
+                "link": "/about/#restura-view"
             },
             {
                 "title": "Delicious Food",
-                "description": "Aliquam eget aliquam magna, quis posuere risus ac justo ipsum nibh urna.",
+                "description": "Our kitchen celebrates the art of fine dining with dishes crafted from fresh, premium ingredients and perfected through thoughtful techniques. Every plate offers balanced flavors, elegant presentation, and rich aromas that captivate from the first bite. With each creation, we aim to deliver a memorable culinary journey that delights every guest.",
                 "image": "arcadia/images/intro-02.jpg",
-                "link": "#"
+                "link": "/about/#recipes"
             },
             {
                 "title": "Red Wines You Love",
-                "description": "Sed ornare ligula eget tortor tempor, quis porta tellus dictum.",
+                "description": "Discover a curated collection of exceptional red wines selected for their depth, character, and timeless appeal. Whether you enjoy bold notes or smooth, velvety finishes, our sommelier ensures every glass complements your meal beautifully. Sip, savor, and enjoy a red wine experience designed to elevate your evening with effortless luxury.",
                 "image": "arcadia/images/intro-04.jpg",
-                "link": "#"
+                "link": "about/#red-wine"
             },
         ]
         # To display blogs in the home page
@@ -58,7 +60,6 @@ class HomeView(TemplateView):
 
         context["events"] = Event.objects.filter(event_time__gte=timezone.now()).order_by("event_time")
 
-        # print("Events in HomeView:", context["events"])
 
         return context
 
@@ -70,33 +71,33 @@ class EventDetailView(DetailView):
 
 
 class IntroSectionView(TemplateView):
-    template_name = 'booking.html'
+    template_name = 'intro.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['intro_items'] = [
-            {
-                "title": "Breath Taking Views",
-                "description": "Phasellus lorem enim, luctus ut velit eget, con-vallis egestas eros.",
-                "image": "arcadia/images/intro-01.jpg",
-                "link": "#"
-            },
-            {
-                "title": "Delicious Food",
-                "description": "Aliquam eget aliquam magna, quis posuere risus ac justo ipsum nibh urna.",
-                "image": "arcadia/images/intro-02.jpg",
-                "link": "#"
-            },
-            {
-                "title": "Red Wines You Love",
-                "description": "Sed ornare ligula eget tortor tempor, quis porta tellus dictum.",
-                "image": "arcadia/images/intro-04.jpg",
-                "link": "#"
-            },
-        ]
+        # context['intro_items'] = [
+        #     {
+        #         "title": "Breath Taking Views",
+        #         "description": "Experience a serene escape where every corner of the restaurant opens to breathtaking views that calm the mind and elevate the senses. Soft lighting, warm interiors, and panoramic scenery create a soothing ambience, making every visit feel unforgettable. It’s the perfect place to unwind, connect, and enjoy true visual tranquility.",
+        #         "image": "arcadia/images/intro-01.jpg",
+        #         "link": "/about/#our-story"
+        #     },
+        #     {
+        #         "title": "Delicious Food",
+        #         "description": "Our kitchen celebrates the art of fine dining with dishes crafted from fresh, premium ingredients and perfected through thoughtful techniques. Every plate offers balanced flavors, elegant presentation, and rich aromas that captivate from the first bite. With each creation, we aim to deliver a memorable culinary journey that delights every guest.",
+        #         "image": "arcadia/images/intro-02.jpg",
+        #         "link": "/about/#recipes"
+        #     },
+        #     {
+        #         "title": "Red Wines You Love",
+        #         "description": "Discover a curated collection of exceptional red wines selected for their depth, character, and timeless appeal. Whether you enjoy bold notes or smooth, velvety finishes, our sommelier ensures every glass complements your meal beautifully. Sip, savor, and enjoy a red wine experience designed to elevate your evening with effortless luxury.",
+        #         "image": "arcadia/images/intro-04.jpg",
+        #         "link": "/about/#red-wine"
+        #     },
+        # ]
 
-        return context
+        # return context
 
 class AboutView(TemplateView):
     template_name = "arcadia/about.html"
@@ -106,9 +107,9 @@ class AboutView(TemplateView):
 
         # Static slider images
         context['about_images'] = [
-            "arcadia/images/slide1-01.jpg",
-            "arcadia/images/master-slides-02.jpg",
-            "arcadia/images/master-slides-01.jpg",
+            "images/slide1-01.jpg",
+            "images/master-slides-02.jpg",
+            "images/master-slides-01.jpg",
         ]
 
 # class MenuView(TemplateView):
@@ -355,6 +356,7 @@ class PostSearchView(View):
     
 
 
+@method_decorator(csrf_protect, name="dispatch")
 class CommentView(View):
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
